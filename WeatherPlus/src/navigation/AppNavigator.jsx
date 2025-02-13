@@ -3,6 +3,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../screens/HomeScreen';
 import AuthScreen from '../screens/AuthScreen';
+import WeatherScreen from '../screens/WeatherScreen';
 const Stack = createNativeStackNavigator();
 
 const StackNavigator = () => {
@@ -17,6 +18,11 @@ const StackNavigator = () => {
         name="Auth"
         component={AuthScreen}
         options={{ title: 'Auth' , headerShown: false}}
+      />
+      <Stack.Screen
+        name="Weather"
+        component={WeatherScreen}
+        options={{ title: 'Weather' , headerShown: false}}
       />
 
     </Stack.Navigator>

@@ -2,13 +2,13 @@ import { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import AuthForm from "../components/form/Form";
 
-function AuthScreen() {
+function AuthScreen({ navigation }) {
   const [isSignUp, setIsSignUp] = useState(false);
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{isSignUp ? "Inscription" : "Connexion"}</Text>
-      <AuthForm isSignUp={isSignUp} />
+      <AuthForm isSignUp={isSignUp} navigation={navigation}/>
 
       {/* Bouton pour basculer entre Connexion et Inscription */}
       <TouchableOpacity onPress={() => setIsSignUp(!isSignUp)}>

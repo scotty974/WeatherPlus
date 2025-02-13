@@ -4,7 +4,7 @@ import { useState } from "react";
 import { login, register } from "../../services/AuthService";
 import { storeToken } from "../../services/StorageService";
 
-function AuthForm({ isSignUp, onAuthSuccess }) {
+function AuthForm({ isSignUp, navigation }) {
   const [data, setData] = useState({ email: "", password: "" });
 
   const handleAuth = async () => {
@@ -23,6 +23,7 @@ function AuthForm({ isSignUp, onAuthSuccess }) {
       if (resp?.token) {
         await storeToken(resp.token);
         console.log("Utilisateur connecté !");
+        navigation.navigate("Weather");
       }
     } catch (error) {
       console.error("Erreur d'authentification :", error);
