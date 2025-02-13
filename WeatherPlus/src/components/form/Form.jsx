@@ -1,10 +1,12 @@
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { StyleSheet } from "react-native";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { login, register } from "../../services/AuthService";
 import { storeToken } from "../../services/StorageService";
+import { AuthContext } from "../../context/AuthContext";
 
 function AuthForm({ isSignUp, navigation }) {
+  const { setUserToken } = useContext(AuthContext);
   const [data, setData] = useState({ email: "", password: "" });
 
   const handleAuth = async () => {
@@ -22,8 +24,13 @@ function AuthForm({ isSignUp, navigation }) {
 
       if (resp?.token) {
         await storeToken(resp.token);
+        setUserToken(resp.token); // Mise à jour du contexte
+
         console.log("Utilisateur connecté !");
-        navigation.navigate("Weather");
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "Weather" }], // Réinitialisation de la navigation
+        });
       }
     } catch (error) {
       console.error("Erreur d'authentification :", error);
@@ -50,7 +57,9 @@ function AuthForm({ isSignUp, navigation }) {
       </View>
 
       <TouchableOpacity style={styles.button} onPress={handleAuth}>
-        <Text style={styles.buttonText}>{isSignUp ? "S'inscrire" : "Se connecter"}</Text>
+        <Text style={styles.buttonText}>
+          {isSignUp ? "S'inscrire" : "Se connecter"}
+        </Text>
       </TouchableOpacity>
     </View>
   );
