@@ -6,7 +6,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
 const service = {
-    user : 'http://localhost:3001/users',
+    user : 'http://localhost:3001/user',
 }
 
 app.use('/api/:service', (req, res, next) => {
